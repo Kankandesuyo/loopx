@@ -19,7 +19,6 @@ from .evidence_packet import (
     RESEARCH_EVIDENCE_EVENT_SCHEMA_VERSION,
     RESEARCH_HYPOTHESIS_SCHEMA_VERSION,
     _compact_public_text,
-    _compact_public_text_list,
     _compact_public_token,
     _derive_hypothesis_status,
     _finite_float,

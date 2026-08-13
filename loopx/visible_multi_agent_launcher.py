@@ -36,12 +36,12 @@ from .control_plane.agents.multi_agent.visible_wake_scheduler import (
     resolve_initial_wake_plan,
 )
 from .visible_multi_agent_tmux import (
-    PANE_A2A_INPUT_READY_TIMEOUT_SECONDS,
-    PANE_A2A_WAKEUP_PROMPT,
-    PANE_A2A_WAKEUP_SCHEMA_VERSION,
+    PANE_A2A_INPUT_READY_TIMEOUT_SECONDS as PANE_A2A_INPUT_READY_TIMEOUT_SECONDS,
+    PANE_A2A_WAKEUP_PROMPT as PANE_A2A_WAKEUP_PROMPT,
+    PANE_A2A_WAKEUP_SCHEMA_VERSION as PANE_A2A_WAKEUP_SCHEMA_VERSION,
     TMUX_LANE_ID_OPTION,
-    build_pane_a2a_wakeup_prompt,
-    wake_visible_multi_agent_panes,
+    build_pane_a2a_wakeup_prompt as build_pane_a2a_wakeup_prompt,
+    wake_visible_multi_agent_panes as wake_visible_multi_agent_panes,
 )
 
 

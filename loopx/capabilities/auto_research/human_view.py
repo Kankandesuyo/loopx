@@ -368,7 +368,7 @@ def _render_worker_turn(payload: dict[str, object]) -> str:
         f"- holdout_metric: `{payload.get('holdout_metric')}`",
         f"- appended_count: `{append.get('appended_count')}`",
         f"- live_evidence_written: `{live_evidence.get('written')}`",
-        f"- public_boundary: raw_logs=`False`, private_artifacts=`False`, paths=`local-only`",
+        "- public_boundary: raw_logs=`False`, private_artifacts=`False`, paths=`local-only`",
     ]
     return "\n".join(lines) + "\n"
 

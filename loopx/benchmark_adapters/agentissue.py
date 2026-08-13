@@ -1168,8 +1168,7 @@ def materialize_agentissue_codex_cli_runner_run_gate(
 
     workflow_check = json.loads(workflow_path.read_text(encoding="utf-8"))
     execution_gate = json.loads(gate_path.read_text(encoding="utf-8"))
-    handoff = json.loads(handoff_path.read_text(encoding="utf-8"))
-
+    json.loads(handoff_path.read_text(encoding="utf-8"))
     gate_items = [
         {
             "id": "selected_tag_and_image_locked",

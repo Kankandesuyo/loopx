@@ -1,5 +1,10 @@
 from __future__ import annotations
 
+# This module is the legacy public benchmark facade. The imports below keep
+# established ``loopx.benchmark`` call sites compatible while implementations
+# move into benchmark_core and benchmark_adapters.
+# ruff: noqa: F401
+
 import importlib.util
 import json
 import os

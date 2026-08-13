@@ -1277,8 +1277,6 @@ def _agents_last_exam_codex_mcp_config_probe(
     }
 
 def _agents_last_exam_fake_cua_server():
-    from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
-    import threading
 
     class Handler(BaseHTTPRequestHandler):
         def do_POST(self) -> None:  # noqa: N802

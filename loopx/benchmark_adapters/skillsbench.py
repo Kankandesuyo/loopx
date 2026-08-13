@@ -36,8 +36,8 @@ from .skillsbench_acp_failure_policy import (
 )
 from .skillsbench_signals import build_skillsbench_solution_quality_signals
 from .skillsbench_result_discovery import (
-    SKILLSBENCH_RESULT_DISCOVERY_SCHEMA_VERSION,
-    discover_skillsbench_benchflow_result_json,
+    SKILLSBENCH_RESULT_DISCOVERY_SCHEMA_VERSION as SKILLSBENCH_RESULT_DISCOVERY_SCHEMA_VERSION,
+    discover_skillsbench_benchflow_result_json as discover_skillsbench_benchflow_result_json,
 )
 from .skillsbench_typed_repair import (
     compact_skillsbench_typed_repair_counters,

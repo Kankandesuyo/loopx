@@ -2,14 +2,12 @@ from __future__ import annotations
 
 import copy
 import json
-import os
 import shutil
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
 from .global_registry import write_json
-from .paths import DEFAULT_RUNTIME_ROOT
 from .registry import registry_goals
 
 
