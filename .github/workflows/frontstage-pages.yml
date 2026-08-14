@@ -124,14 +124,11 @@ jobs:
         if: github.event_name != 'pull_request'
         env:
           # Since July 2026, GitHub restricts this endpoint to repository
-          # collaborators. Keep this credential read-only and repo-scoped.
-          GH_TOKEN: ${{ secrets.STAR_HISTORY_READ_TOKEN }}
+          # collaborators. Prefer an optional read-only repo-scoped override,
+          # then fall back to the job-scoped GitHub App installation token.
+          GH_TOKEN: ${{ secrets.STAR_HISTORY_READ_TOKEN || github.token }}
         run: |
           set -euo pipefail
-          if [[ -z "${GH_TOKEN:-}" ]]; then
-            echo "::error title=Missing star-history credential::Set STAR_HISTORY_READ_TOKEN to a fine-grained PAT limited to this repository with Metadata: read." >&2
-            exit 1
-          fi
           owner="${GITHUB_REPOSITORY%%/*}"
           repo="${GITHUB_REPOSITORY#*/}"
           count_query='query($owner: String!, $repo: String!) {
