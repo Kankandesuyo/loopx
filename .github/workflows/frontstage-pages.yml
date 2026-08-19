@@ -120,13 +120,26 @@ jobs:
         working-directory: apps/presentation/dashboard
         run: npm run export:frontstage-share -- --base /loopx/ --out-dir ../../../output/frontstage-pages
 
-      - name: Fetch complete GitHub stargazer history
+      - name: Detect star-history credential
+        id: star-history-auth
         if: github.event_name != 'pull_request'
         env:
+          STAR_HISTORY_READ_TOKEN: ${{ secrets.STAR_HISTORY_READ_TOKEN }}
+        run: |
+          if [[ -n "$STAR_HISTORY_READ_TOKEN" ]]; then
+            echo "available=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "available=false" >> "$GITHUB_OUTPUT"
+            echo "::warning title=Star history omitted::STAR_HISTORY_READ_TOKEN is unavailable; continuing with the rest of the Pages build." >&2
+          fi
+
+      - name: Fetch complete GitHub stargazer history
+        if: github.event_name != 'pull_request' && steps.star-history-auth.outputs.available == 'true'
+        env:
           # Since July 2026, GitHub restricts this endpoint to repository
-          # collaborators. Prefer an optional read-only repo-scoped override,
-          # then fall back to the job-scoped GitHub App installation token.
-          GH_TOKEN: ${{ secrets.STAR_HISTORY_READ_TOKEN || github.token }}
+          # collaborators. The job-scoped GitHub App token cannot enumerate
+          # this history, so only the optional read-only override may use it.
+          GH_TOKEN: ${{ secrets.STAR_HISTORY_READ_TOKEN }}
         run: |
           set -euo pipefail
           owner="${GITHUB_REPOSITORY%%/*}"
@@ -172,7 +185,7 @@ jobs:
           done
 
       - name: Generate verified public star history
-        if: github.event_name != 'pull_request'
+        if: github.event_name != 'pull_request' && steps.star-history-auth.outputs.available == 'true'
         run: |
           python3 scripts/render-star-history.py \
             --repo "$GITHUB_REPOSITORY" \
@@ -181,7 +194,7 @@ jobs:
             --output output/frontstage-pages/site/site-assets/star-history.svg
 
       - name: Verify star history freshness
-        if: github.event_name != 'pull_request'
+        if: github.event_name != 'pull_request' && steps.star-history-auth.outputs.available == 'true'
         run: |
           python3 - <<'PY'
           import datetime as dt
