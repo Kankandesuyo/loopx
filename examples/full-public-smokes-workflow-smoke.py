@@ -56,6 +56,8 @@ def main() -> int:
     assert "contents: write" not in text
     assert "pull-requests: write" not in text
     assert "sec" + "rets." not in text
+    assert text.count("github.repository == 'huangruiteng/loopx'") == 2
+    assert "if: always() && github.repository == 'huangruiteng/loopx'" in text
 
     matrix = [
         (int(match.group("shard")), int(match.group("offset")))
