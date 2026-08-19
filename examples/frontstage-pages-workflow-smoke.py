@@ -84,8 +84,16 @@ def main() -> int:
         "examples/readme-star-history-smoke.py",
         "python3 examples/readme-star-history-smoke.py",
         "scripts/render-star-history.py",
-        "secrets.STAR_HISTORY_READ_TOKEN || github.token",
-        "job-scoped GitHub App installation token",
+        "Detect star-history credential",
+        "id: star-history-auth",
+        'if [[ -n "$STAR_HISTORY_READ_TOKEN" ]]',
+        'echo "available=true" >> "$GITHUB_OUTPUT"',
+        'echo "available=false" >> "$GITHUB_OUTPUT"',
+        "Star history omitted",
+        "continuing with the rest of the Pages build",
+        "steps.star-history-auth.outputs.available == 'true'",
+        "GH_TOKEN: ${{ secrets.STAR_HISTORY_READ_TOKEN }}",
+        "job-scoped GitHub App token cannot enumerate",
         "gh api graphql --paginate --slurp",
         "stargazers { totalCount }",
         ".data.repository.stargazers.totalCount",
@@ -129,6 +137,7 @@ def main() -> int:
         "fine-grained PAT limited to this repository with Metadata: read",
         "stargazerCount",
         '"/stargazers?per_page=100"',
+        "secrets.STAR_HISTORY_READ_TOKEN || github.token",
     ]:
         assert_absent(text, forbidden)
 
